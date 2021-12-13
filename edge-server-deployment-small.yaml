@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: edge-server-cv
+  labels:
+    app: edge-server-cv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edge-server-cv
+  template:
+    metadata:
+      labels:
+        app: edge-server-cv
+    spec:
+      containers:
+      - image: imagerec:latest
+        name: edge-server-cv
+        resources:
+          limits:
+            cpu: "950m"
+            memory: "1842346Ki"
+          requests:
+            cpu: "475m"
+            memory: "921173Ki"
+        env:
+        - name: EDGE_SERVER_PORT
+          value: '8000'
+        ports:
+        - name: es-port
+          containerPort: 8000
+        imagePullPolicy: Never
