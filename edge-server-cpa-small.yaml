@@ -7,13 +7,15 @@ spec:
     spec:
       containers:
       - name: python-custom-autoscaler
-        image: cpa_hpa_v16:latest
+        image: cpa_python:latest
         imagePullPolicy: IfNotPresent
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: edge-server-cv
+    name: edge-server-cv 
   roleRequiresMetricsServer: false
   config: 
     - name: interval
-      value: "10000"
+      value: "15000"
+
+

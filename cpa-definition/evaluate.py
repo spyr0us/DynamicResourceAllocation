@@ -23,12 +23,12 @@ import math
 #   "metrics": [
 #     {
 #       "resource": "php-apache",
-#       "value": "{\"current_replicas\": 3, \"average_utilization\": 60}"
+#       "value": "{\"current_replicas\": 3, \"average_value\": 60}"
 #     }
 #   ]
 # }
 
-target_average_utilization = 300
+target_average_value = 300
 
 def main():
     # Parse JSON into a dict
@@ -46,16 +46,11 @@ def evaluate(spec):
 
     # Get the current replicas from the metric
     current_replicas = metric_value["current_replicas"]
-    # Get the average utilization from the metric
-    average_utilization = metric_value["average_utilization"]
+    # Get the average value from the metric
+    average_value = metric_value["average_value"]
 
-    # Calculate target replicas, increase by 1 if utilization is above target, decrease by 1 if utilization is below
-    # target
-    target_replicas = current_replicas
-    if average_utilization > target_average_utilization:
-        target_replicas += 1
-    else: 
-        target_replicas = 1
+    # Calculate target replicas
+    target_replicas = math.ceil(current_replicas * ( average_value / target_average_value))
 
     # Build JSON dict with targetReplicas
     evaluation = {}

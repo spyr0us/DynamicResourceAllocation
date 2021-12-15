@@ -17,40 +17,31 @@ import sys
 
 # JSON piped into this script example:
 # {
-#     ...
+#     "resource": "...",
+#     "runType": "scaler",
 #     "kubernetesMetrics": [
-#         {
-#             "current_replicas": 1,
-#             "spec": {
-#                 "type": "Resource",
-#                 "resource": {
-#                     "name": "cpu",
-#                     "target": {
-#                         "type": "Utilization"
-#                     }
-#                 }
-#             },
-#             "resource": {
-#                 "pod_metrics_info": {
-#                     "flask-metric-697794dd85-bsttm": {
-#                         "Timestamp": "2021-04-05T18:10:10Z",
-#                         "Window": 30000000000,
-#                         "Value": 4
-#                     }
-#                 },
-#                 "requests": {
-#                     "flask-metric-697794dd85-bsttm": 200
-#                 },
-#                 "ready_pod_count": 1,
-#                 "ignored_pods": {},
-#                 "missing_pods": {},
-#                 "total_pods": 1,
-#                 "timestamp": "2021-04-05T18:10:10Z"
+#       {
+#         "current_replicas": 1,
+#         "spec": {
+#           "type": "Object",
+#           "metric": {
+#             "name": "queue_messages_ready",
+#             "selector": "queue=worker_tasks",
+#             "target": {
+#               "type": "Value"
 #             }
+#           }
+#         },
+#         "object": { 
+#           "current": {
+#             "value": 5 
+#           },
+#           "ready_pod_count": 1,
+#           "timestamp": "2021-04-05T18:10:10Z"
 #         }
+#       }
 #     ]
-#     ...
-# }
+#   }
 
 def main():
     # Parse JSON into a dict
@@ -62,19 +53,19 @@ def metric(spec):
     flask_metrics = spec["kubernetesMetrics"][0]
     # Pull out the current replicas
     current_replicas = flask_metrics["current_replicas"]
-    # Get the resource metric info
+    # Get the object metric info
     objecta = flask_metrics["object"]
-    # Get the list of pod metrics
+    # Get the current tag
     current = objecta["current"]
-    # Total up all of the pod values
-    average_utilization = current["value"]
+    # Get the value of the metric
+    average_value = current["value"]
     
     
     # Generate some JSON to pass to the evaluator
     sys.stdout.write(json.dumps(
         {
             "current_replicas": current_replicas,
-            "average_utilization": average_utilization
+            "average_value": average_value
         }
     ))
 

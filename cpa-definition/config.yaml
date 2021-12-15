@@ -1,4 +1,3 @@
-
 evaluate:
   type: "shell"
   timeout: 2500
@@ -24,5 +23,7 @@ kubernetesMetricSpecs:
       name: edge-server-cv
     target:
       type: Value
+minReplicas: 1
+maxReplicas: 5      
 runMode: "per-resource"
 
