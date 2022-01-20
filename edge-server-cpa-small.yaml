@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: python-custom-autoscaler
-        image: cpa_python:latest
+        image: objectvalue_v3:latest
         imagePullPolicy: IfNotPresent
   scaleTargetRef:
     apiVersion: apps/v1
@@ -17,5 +17,5 @@ spec:
   config: 
     - name: interval
       value: "15000"
-
+#To image cpa_python_v12:latest einai type:pods/averagevalue
 

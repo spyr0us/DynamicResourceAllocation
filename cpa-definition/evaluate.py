@@ -23,12 +23,12 @@ import math
 #   "metrics": [
 #     {
 #       "resource": "php-apache",
-#       "value": "{\"current_replicas\": 3, \"average_value\": 60}"
+#       "value": "{\"current_replicas\": 3, \"rr_for30\": 20 \"art_for30\": 60}"
 #     }
 #   ]
 # }
 
-target_average_value = 300
+target_average_response_time = 320
 
 def main():
     # Parse JSON into a dict
@@ -46,11 +46,13 @@ def evaluate(spec):
 
     # Get the current replicas from the metric
     current_replicas = metric_value["current_replicas"]
-    # Get the average value from the metric
-    average_value = metric_value["average_value"]
+    # Get the average_response_time_for30 value from the metric
+    art_for30 = metric_value["art_for30"]
+    # Get the request_rate_for30 value from the metric
+    #rr_for30 = metric_value["rr_for30"]
 
     # Calculate target replicas
-    target_replicas = math.ceil(current_replicas * ( average_value / target_average_value))
+    target_replicas = math.ceil(current_replicas * ( art_for30 / target_average_response_time))
 
     # Build JSON dict with targetReplicas
     evaluation = {}

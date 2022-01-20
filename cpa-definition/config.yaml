@@ -17,13 +17,23 @@ kubernetesMetricSpecs:
   object:
     metric:
       name: edge_server_request_rate_for_30
-    describedObject:
-      apiVersion: /v1
-      kind: Service
-      name: edge-server-cv
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cv   
     target:
       type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_art_for_30
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cv  
+    target:
+      type: Value               
 minReplicas: 1
-maxReplicas: 5      
+maxReplicas: 4    
 runMode: "per-resource"
 

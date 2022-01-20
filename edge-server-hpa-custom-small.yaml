@@ -1,5 +1,5 @@
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
-apiVersion: autoscaling/v2beta1
 metadata:
   name: edge-server-cv
 spec:
@@ -8,9 +8,12 @@ spec:
     kind: Deployment
     name: edge-server-cv
   minReplicas: 1
-  maxReplicas: 6
+  maxReplicas: 4
   metrics:
   - type: Pods
     pods:
-      metricName: flask_http_requests_per_second
-      targetAverageValue: 300m
+      metric:
+        name: edge_server_art_for_30
+      target:
+        type: AverageValue
+        averageValue: 320m
