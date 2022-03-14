@@ -18,12 +18,12 @@ spec:
       - image: imagerec:latest
         name: edge-server-cv
         resources:
-          limits:
-            cpu: "950m"
-            memory: "1842346Ki"
           requests:
-            cpu: "475m"
-            memory: "921173Ki"
+            cpu: "300m"
+            memory: "300Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"
         env:
         - name: EDGE_SERVER_PORT
           value: '8000'

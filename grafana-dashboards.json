@@ -71,12 +71,12 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum (rate(flask_http_request_total{service=\"edge-server-cv\"} [2s]))",
+          "expr": "avg(\n    sum by (pod) (\n      rate(flask_http_request_total{service=\"edge-server-cv\"} [2s])\n  )\n)",
           "format": "time_series",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "Average",
+          "legendFormat": "Average Request Rate",
           "refId": "A"
         },
         {
@@ -85,7 +85,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{pod}} Requests",
           "refId": "B"
         }
       ],
@@ -109,6 +109,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:65",
           "format": "reqps",
           "label": null,
           "logBase": 1,
@@ -117,6 +118,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:66",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -174,18 +176,21 @@
       "steppedLine": false,
       "targets": [
         {
+          "exemplar": true,
           "expr": "avg(\n    sum by (pod) (\n      rate(flask_http_request_duration_seconds_sum{service=\"edge-server-cv\"} [10s])\n    ) /\n    sum by (pod) (\n      rate(flask_http_request_duration_seconds_count{service=\"edge-server-cv\"} [10s])\n    )\n)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "Average",
+          "legendFormat": "Average Response Rate",
           "refId": "A"
         },
         {
+          "exemplar": true,
           "expr": "avg by (pod) (\n    sum by (pod) (\n      rate(flask_http_request_duration_seconds_sum{service=\"edge-server-cv\"} [10s])\n    ) /\n    sum by (pod) (\n      rate(flask_http_request_duration_seconds_count{service=\"edge-server-cv\"} [10s])\n    )\n)",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{pod}} average",
+          "legendFormat": "{{pod}} Response",
           "refId": "B"
         }
       ],
@@ -209,6 +214,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:169",
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -217,6 +223,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:170",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -296,7 +303,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "CPU",
+      "title": "CPU Cores",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -312,6 +319,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:328",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -320,6 +328,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:329",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -376,17 +385,21 @@
       "steppedLine": false,
       "targets": [
         {
+          "exemplar": true,
           "expr": "sum(container_memory_working_set_bytes{pod=~\"edge-server-cv-.*\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "Total",
+          "legendFormat": "Total Memory Usage",
           "refId": "A"
         },
         {
+          "exemplar": true,
           "expr": "sum  by (pod) (container_memory_working_set_bytes{pod=~\"edge-server-cv-.*\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{pod}} Usage",
           "refId": "B"
         }
       ],
@@ -410,6 +423,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:434",
           "format": "decbits",
           "label": null,
           "logBase": 1,
@@ -418,6 +432,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:435",
           "format": "bits",
           "label": null,
           "logBase": 1,
@@ -474,8 +489,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count(count by (pod) (flask_http_request_total{pod=~\"edge-server-.*\"}))",
+          "exemplar": true,
+          "expr": "count(count by (pod) (container_memory_usage_bytes{ container=~\"edge-server.*\"}))",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Total",
           "refId": "A"
@@ -485,7 +502,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Number of edge-server-cv pods",
+      "title": "Number of pods",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -501,14 +518,16 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:275",
           "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0.0",
+          "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:276",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -531,7 +550,7 @@
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {

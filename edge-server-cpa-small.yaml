@@ -16,6 +16,6 @@ spec:
   roleRequiresMetricsServer: false
   config: 
     - name: interval
-      value: "15000"
+      value: "10000"
 #To image cpa_python_v12:latest einai type:pods/averagevalue
 
