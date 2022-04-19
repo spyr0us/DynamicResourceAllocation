@@ -8,13 +8,21 @@ spec:
   - interval: 30s
     name: edge-server_rules
     rules:
-    - expr: rate(flask_http_request_total{service="edge-server-cv"} [30s])
-      record: edge_server_request_rate_for_30
-    - expr: "rate(flask_http_request_duration_seconds_sum{service=\"edge-server-cv\"} [30s]) / rate(flask_http_request_duration_seconds_count{service=\"edge-server-cv\"} [30s])\n                "
-      record: edge_server_art_for_30
-    - expr: rate(container_cpu_usage_seconds_total{pod=~"edge-server-cv.*", container="edge-server-cv"}[60s])
+    - expr: sum by (pod) (sum by (pod, status) (rate(flask_http_request_total{service="edge-server-cv"} [2s])))
+      record: edge_server_rr_for_2
+    - expr: sum by (pod) (sum by (pod, status) (rate(flask_http_request_total{service="edge-server-cv"} [30s])))
+      record: edge_server_rr_for_30
+    - expr: rate(container_cpu_usage_seconds_total{container=~"edge-server-cv.*", id=~"/kubepods.*"}[60s])
       record: edge_server_cpu_for_60
-    - expr: container_memory_working_set_bytes{pod=~"edge-server-cv.*", container="edge-server-cv"}
+    - expr: sum(container_memory_working_set_bytes{id=~"/kubepods.*",container=~"edge-server-cv.*"})
       record: edge_server_memory
-    - expr: count(count by (pod)(flask_http_request_total{pod=~"edge-server-cv.*", container="edge-server-cv"}))
+    - expr: count(count by (pod) (container_memory_usage_bytes{ container=~"edge-server.*"}))
       record: edge_server_pod_count
+    - expr: sum(rate(container_cpu_usage_seconds_total{container=~"edge-server-cv.*", id=~"/kubepods.*"}[60s])) / (sum(container_spec_cpu_quota{container=~"edge-server-cv.*", id=~"/kubepods.*"}) / sum(container_spec_cpu_period{container=~"edge-server-cv.*", id=~"/kubepods.*"}) ) * 100 
+      record: edge_server_cpu_per_limit_for_60
+    - expr: avg by (pod) (sum by (pod) (rate(flask_http_request_duration_seconds_sum{service="edge-server-cv"} [10s])) / sum by (pod) (rate(flask_http_request_duration_seconds_count{service="edge-server-cv"} [10s])))
+      record: edge_server_art_for_10
+    - expr: rate(container_cpu_cfs_throttled_seconds_total{container=~"edge-server-cv.*" , id=~"/kubepods.*"} [60s])
+      record: edge_server_cpu_throttling_for_60
+    - expr: round(sum(increase(flask_http_request_total{service=~"edge-server-cv.*"} [30s])))
+      record: edge_server_total_requests_interval_for_30

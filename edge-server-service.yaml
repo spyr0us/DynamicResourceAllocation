@@ -6,9 +6,9 @@ metadata:
     app: edge-server-cv
 spec:
   ports:
-  - name: es-port
-    port: 8000
-    nodePort: 30800
+  - name: edge-server-cv-port
+    port: 6004
+    nodePort: 30796
     targetPort: 8000
   selector:
     app: edge-server-cv
@@ -25,5 +25,5 @@ spec:
     matchLabels:
       app: edge-server-cv
   endpoints:
-  - port: es-port
+  - port: edge-server-cv-port
     interval: 1s
