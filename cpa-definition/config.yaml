@@ -16,7 +16,7 @@ kubernetesMetricSpecs:
 - type: Object
   object:
     metric:
-      name: edge_server_request_rate_for_30
+      name: edge_server_art_for_10
     describedObject : 
         apiVersion: /v1
         kind: Service
@@ -26,14 +26,94 @@ kubernetesMetricSpecs:
 - type: Object
   object:
     metric:
-      name: edge_server_art_for_30
+      name: edge_server_cpu_cores
     describedObject : 
         apiVersion: /v1
         kind: Service
-        name: edge-server-cv  
+        name: edge-server-cv   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_cpu_per_limit_for_60
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cv   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_cpu_throttling_for_60
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cv   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_memory
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cv   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_memory_per_limit
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cv   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_replicas_count
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cv   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_rr_for_2
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cv   
     target:
       type: Value               
+- type: Object
+  object:
+    metric:
+      name: edge_server_rr_for_30
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cv   
+    target:
+      type: Value                
+- type: Object
+  object:
+    metric:
+      name: edge_server_total_requests_interval_for_30
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cv   
+    target:
+      type: Value                 
 minReplicas: 1
-maxReplicas: 4    
+maxReplicas: 3    
 runMode: "per-resource"
 
