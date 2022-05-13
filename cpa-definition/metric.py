@@ -82,51 +82,103 @@ def main():
 
 def metric(spec):
     # Get the first Kubernetes metrics value
-    flask_metrics_a = spec["kubernetesMetrics"][0]
-    # Pull out the current replicas
-    current_replicas = flask_metrics_a["current_replicas"]
+    edge_metrics_a = spec["kubernetesMetrics"][0]
     # Get the first object metric info
-    object_a = flask_metrics_a["object"]
+    object_a = edge_metrics_a["object"]
     # Get the current tag
     object_info_a = object_a["current"]
-    # Get the value of the first metric
-    rr_for30 = object_info_a["value"]
+    # Get the value of the first metric IN SECONDS
+    art_for_10 = object_info_a["value"] / 1000
     # Get the second Kubernetes metrics value
-    flask_metrics_b = spec["kubernetesMetrics"][1]
-    # Get the second object metric info
-    object_b = flask_metrics_b["object"]
-    # Get the current tag
+    edge_metrics_b = spec["kubernetesMetrics"][1]
+    # # Get the second object metric info
+    object_b = edge_metrics_b["object"]
+    # # Get the current tag
     object_info_b = object_b["current"]
-    # Get the value of the second metric
-    art_for30 = object_info_b["value"]
-
-
+    # # Get the value of the second metric
+    cpu_cores = object_info_b["value"] / 1000
     # # Get the third Kubernetes metrics value #############
-    # flask_metrics_c = spec["kubernetesMetrics"][2]
+    edge_metrics_c = spec["kubernetesMetrics"][2]
     # # Get the third object metric info
-    # object_c = flask_metrics_c["object"]
+    object_c = edge_metrics_c["object"]
     # # Get the current tag
-    # current_c = object_c["current"]
+    current_c = object_c["current"]
     # # Get the value of the third metric
-    # cpu_for60 = current_c["value"]
+    cpu_per_limit = current_c["value"] / 1000
     # # Get the fourth Kubernetes metrics value
-    # flask_metrics_d = spec["kubernetesMetrics"][3]
+    edge_metrics_d = spec["kubernetesMetrics"][3]
     # # Get the fourth object metric info
-    # object_d = flask_metrics_d["object"]
+    object_d = edge_metrics_d["object"]
     # # Get the current tag
-    # current_d = object_d["current"]
+    current_d = object_d["current"]
     # # Get the value of the fourth metric
-    # memory = current_d["value"]
+    cpu_throttling = current_d["value"] / 1000
+    # # Get the fifth Kubernetes metrics value
+    edge_metrics_e = spec["kubernetesMetrics"][4]
+    # # Get the fifth object metric info
+    object_e = edge_metrics_e["object"]
+    # # Get the current tag
+    current_e = object_e["current"]
+    # # Get the value of the fifth metric
+    memory_in_MB = current_e["value"] / 1048576000
+    # # Get the sixth Kubernetes metrics value
+    edge_metrics_f = spec["kubernetesMetrics"][5]
+    # # Get the sixth object metric info
+    object_f = edge_metrics_f["object"]
+    # # Get the current tag
+    current_f = object_f["current"]
+    # # Get the value of the sixth metric
+    memory_per_limit = current_f["value"] / 1000
+    # # Get the seventh Kubernetes metrics value
+    edge_metrics_g = spec["kubernetesMetrics"][6]
+    # # Get the seventh object metric info
+    object_g = edge_metrics_g["object"]
+    # # Get the current tag
+    current_g = object_g["current"]
+    # # Get the value of the seventh metric
+    replicas_count = current_g["value"] / 1000
+    # # Get the eight Kubernetes metrics value
+    edge_metrics_h = spec["kubernetesMetrics"][7]
+    # # Get the eigth object metric info
+    object_h = edge_metrics_h["object"]
+    # # Get the current tag
+    current_h = object_h["current"]
+    # # Get the value of the eigth metric
+    rr_for_2 = current_h["value"] / 1000
+    # # Get the ninth Kubernetes metrics value
+    edge_metrics_i = spec["kubernetesMetrics"][8]
+    # # Get the ninth object metric info
+    object_i = edge_metrics_i["object"]
+    # # Get the current tag
+    current_i = object_i["current"]
+    # # Get the value of the ninth metric
+    rr_for_30 = current_i["value"] / 1000
+    # # Get the tenth Kubernetes metrics value
+    edge_metrics_j = spec["kubernetesMetrics"][9]
+    # # Get the tenth object metric info
+    object_j = edge_metrics_j["object"]
+    # # Get the current tag
+    current_j = object_j["current"]
+    # # Get the value of the tenth metric
+    total_requests_interval_30 = current_j["value"] / 1000
+    
+    
+
 
     
     # Generate some JSON to pass to the evaluator
     sys.stdout.write(json.dumps(
         {
-            "current_replicas": current_replicas,
-            "rr_for30": rr_for30,
-            "art_for30": art_for30,
-            #"cpu_for60": cpu_for60,
-            #"memory": memory
+            "art_for_10": art_for_10,
+            "cpu_cores": cpu_cores,
+            "cpu_per_limit": cpu_per_limit,
+            "cpu_throttling": cpu_throttling,
+            "memory_in_MB": memory_in_MB,
+            "memory_per_limit": memory_per_limit,
+            "replicas_count": replicas_count,
+            "rr_for_2": rr_for_2,
+            "rr_for_30": rr_for_30,
+            "total_requests_interval_30": total_requests_interval_30
 
         }
     ))
