@@ -161,7 +161,7 @@ def metric(spec):
     current_j = object_j["current"]
     # # Get the value of the tenth metric
     total_requests_interval_30 = current_j["value"] / 1000
-    
+    #
     
 
 

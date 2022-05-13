@@ -116,4 +116,3 @@ kubernetesMetricSpecs:
 minReplicas: 1
 maxReplicas: 3    
 runMode: "per-resource"
-

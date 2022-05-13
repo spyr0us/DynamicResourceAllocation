@@ -15,7 +15,7 @@
 import json
 import sys
 import math
-
+#
 # JSON piped into this script example:
 # {
 #   "resource": "php-apache",
