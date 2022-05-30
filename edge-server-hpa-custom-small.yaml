@@ -8,12 +8,16 @@ spec:
     kind: Deployment
     name: edge-server-cv
   minReplicas: 1
-  maxReplicas: 4
+  maxReplicas: 3
   metrics:
-  - type: Pods
-    pods:
+  - type: Object
+    object:
       metric:
-        name: edge_server_art_for_30
+        name: edge_server_cpu_per_limit_for_60
+      describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cv
       target:
-        type: AverageValue
-        averageValue: 320m
+        type: Value
+        value: 60000m

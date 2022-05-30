@@ -1,0 +1,38 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: edge-server-cv
+  labels:
+    app: edge-server-cv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edge-server-cv
+  template:
+    metadata:
+      labels:
+        app: edge-server-cv
+        version: "1.0"
+    spec:
+      containers:
+      - image: dspatharakis/controller_druidnet:edge-server
+        name: edge-server-cv
+        resources:
+          requests:
+            cpu: "2000m"
+            memory: "4000Mi"
+          limits:
+            cpu: "2000m"
+            memory: "4000Mi"
+        env:
+        - name: EDGE_SERVER_PORT
+          value: '8000'
+        - name: CPU_LIMIT
+          value: '2'
+        - name: PROMETHEUS_MULTIPROC_DIR
+          value: '/tmp'
+        ports:
+        - name: es-port
+          containerPort: 8000
+        imagePullPolicy: Never

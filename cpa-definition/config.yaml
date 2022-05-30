@@ -115,4 +115,5 @@ kubernetesMetricSpecs:
       type: Value                 
 minReplicas: 1
 maxReplicas: 3    
+downscaleStabilization: 20 # Tou dinw 2 interval na tsillarei otan kanei downscale na dei ama paei kala 
 runMode: "per-resource"

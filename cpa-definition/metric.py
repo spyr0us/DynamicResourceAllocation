@@ -14,6 +14,12 @@
 
 import json
 import sys
+import pickle 
+import sklearn
+from sklearn.preprocessing import StandardScaler
+import numpy as np 
+import os 
+
 
     # JSON piped in this script example:
     # "runType": "scaler",
@@ -83,6 +89,7 @@ def main():
 def metric(spec):
     # Get the first Kubernetes metrics value
     edge_metrics_a = spec["kubernetesMetrics"][0]
+    current_replicas = edge_metrics_a["current_replicas"]
     # Get the first object metric info
     object_a = edge_metrics_a["object"]
     # Get the current tag
@@ -161,26 +168,40 @@ def metric(spec):
     current_j = object_j["current"]
     # # Get the value of the tenth metric
     total_requests_interval_30 = current_j["value"] / 1000
-    #
     
-
-
+    ## Machine Learning Implementation 
+    loaded_rfc, loaded_pca = pickle.load(open(r'RandomForest_and_PCA.sav', 'rb'))
+    loaded_reg, loaded_svm , loaded_knn , loaded_nb = pickle.load(open(r'Regression_SVM_KNN_NB.sav', 'rb'))
+    X = [[art_for_10*1000, cpu_throttling, cpu_per_limit, rr_for_30, memory_in_MB, cpu_cores, total_requests_interval_30, rr_for_2, current_replicas, memory_per_limit]]
+    
+    yreg = loaded_reg.predict(X)
+    ysvm = loaded_svm.predict(X)
+    yknn = loaded_knn.predict(X)
+    ynb  = loaded_nb.predict(X)
+    X1 = loaded_pca.transform(X)
+    yrfc = loaded_rfc.predict(X1)
+    
     
     # Generate some JSON to pass to the evaluator
     sys.stdout.write(json.dumps(
         {
             "art_for_10": art_for_10,
-            "cpu_cores": cpu_cores,
-            "cpu_per_limit": cpu_per_limit,
             "cpu_throttling": cpu_throttling,
-            "memory_in_MB": memory_in_MB,
-            "memory_per_limit": memory_per_limit,
-            "replicas_count": replicas_count,
-            "rr_for_2": rr_for_2,
+            "cpu_per_limit": cpu_per_limit,
             "rr_for_30": rr_for_30,
-            "total_requests_interval_30": total_requests_interval_30
-
-        }
+            "memory_in_MB": memory_in_MB,
+            "cpu_cores": cpu_cores,
+            "total_requests_interval_30": total_requests_interval_30,
+            "rr_for_2": rr_for_2,
+            "current_replicas": current_replicas,
+            #"replicas_count": replicas_count,
+            "memory_per_limit": memory_per_limit,
+            "RFC_scaling_decision": int(yrfc[0]),   
+            "Regression_scaling_decision": int(yreg[0]),
+            "SVM_scaling_decision": int(ysvm[0]),
+            "KNN_scaling_decision": int(yknn[0]),
+            "NB_scaling_decision": int(ynb[0])  
+            }
     ))
 
 if __name__ == "__main__":

@@ -1,21 +1,19 @@
 apiVersion: custompodautoscaler.com/v1
 kind: CustomPodAutoscaler
 metadata:
-  name: python-custom-autoscaler
+  name: python-custom-autoscaler-small
 spec:
   template:
     spec:
       containers:
-      - name: python-custom-autoscaler
-        image: objectvalue_v3:latest
+      - name: python-custom-autoscaler-small
+        image: python_rfc_scaler_v6:latest ##pickle_cpa8:latest
         imagePullPolicy: IfNotPresent
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: edge-server-cv 
+    name: edge-server-cx
   roleRequiresMetricsServer: false
   config: 
     - name: interval
       value: "10000"
-#To image cpa_python_v12:latest einai type:pods/averagevalue
-

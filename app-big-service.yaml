@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: edge-server-cv
+  labels:
+    app: edge-server-cv
+spec:
+  ports:
+  - name: edge-server-cv-port
+    port: 6004
+    nodePort: 30796
+    targetPort: 8000
+  selector:
+    app: edge-server-cv
+  type: NodePort
+---
+kind: ServiceMonitor
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: edge-server-cv
+  labels:
+    app: edge-server-cv
+spec:
+  selector:
+    matchLabels:
+      app: edge-server-cv
+  endpoints:
+  - port: edge-server-cv-port
+    interval: 1s

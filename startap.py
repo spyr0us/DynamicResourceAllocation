@@ -15,12 +15,12 @@ for (dirpath, dirnames, filenames) in os.walk(IMAGES_PATH):
 def post_once():
      image = os.path.join(IMAGES_PATH, random.choice(IMAGES))
      print('Using image: {}'.format(image))
-     a = requests.post("http://192.168.49.2:30800", files={"file":
+     a = requests.post("http://edge-server-cv.info:80", files={"file":
 open(image, "rb")})
      print(a)
-
-DURATION = float(os.getenv('DURATION', '1600.0'))
-REQUESTS_PER_30 = float(os.getenv('REQUESTS_PER_30', '10.0'))
+#http://192.168.49.2:30796
+DURATION = float(os.getenv('DURATION', '1800.0'))
+REQUESTS_PER_30 = float(os.getenv('REQUESTS_PER_30', '90.0'))
 POOL = dummy.Pool(16)
 
 def main():

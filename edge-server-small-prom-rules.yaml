@@ -1,0 +1,60 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: edge-server-small-rule
+  namespace: monitoring
+spec:
+  groups:
+  - name: edge-server-small-rule
+    interval: 30s
+    rules:
+    - expr: avg(sum by (pod) (rate(flask_http_request_total{service=~"edge-server-cx.*"} [2s])))
+      record: edge_server_rr_for_2_cx
+      labels:
+        namespace: default
+        service: edge-server-cx
+    - expr: sum by (pod) (sum by (pod, status) ( sum(rate(flask_http_request_total{service="edge-server-cx"} [30s]))))
+      record: edge_server_rr_for_30_cx
+      labels:
+        namespace: default
+        service: edge-server-cx
+    - expr: rate(container_cpu_usage_seconds_total{container=~"edge-server-cx.*", id=~"/kubepods.*"}[60s])
+      record: edge_server_cpu_cores_cx
+      labels:
+        namespace: default
+        service: edge-server-cx
+    - expr: avg(container_memory_working_set_bytes{id=~"/kubepods.*",container=~"edge-server-cx.*"})
+      record: edge_server_memory_cx
+      labels:
+        namespace: default
+        service: edge-server-cx
+    - expr: count(count by (pod) (container_memory_usage_bytes{ container=~"edge-server.*"}))
+      record: edge_server_replicas_count_cx
+      labels:
+        namespace: default
+        service: edge-server-cx
+    - expr: avg(rate(container_cpu_usage_seconds_total{container=~"edge-server-cx.*", id=~"/kubepods.*"}[60s])) / (sum(container_spec_cpu_quota{container=~"edge-server-cx.*", id=~"/kubepods.*"}) / sum(container_spec_cpu_period{container=~"edge-server-cx.*", id=~"/kubepods.*"}) ) * 100 
+      record: edge_server_cpu_per_limit_for_60_cx
+      labels:
+        namespace: default
+        service: edge-server-cx
+    - expr: avg(sum by (pod) (rate(flask_http_request_duration_seconds_sum{service="edge-server-cx"} [10s])) / sum by (pod) (rate(flask_http_request_duration_seconds_count{service="edge-server-cx"} [10s])))
+      record: edge_server_art_for_10_cx
+      labels:
+        namespace: default
+        service: edge-server-cx
+    - expr: avg(rate(container_cpu_cfs_throttled_seconds_total{container=~"edge-server-cx.*" , id=~"/kubepods.*"} [60s]))
+      record: edge_server_cpu_throttling_for_60_cx
+      labels:
+        namespace: default
+        service: edge-server-cx
+    - expr: round(sum(increase(flask_http_request_total{service=~"edge-server-cx.*"} [30s])))
+      record: edge_server_total_requests_interval_for_30_cx
+      labels:
+        namespace: default
+        service: edge-server-cx
+    - expr: avg(container_memory_working_set_bytes{id=~"/kubepods.*",container=~"edge-server-cx.*"} / container_spec_memory_limit_bytes{container=~"edge-server-cx.*", id=~"/kubepods.*"}) * 100  
+      record: edge_server_memory_per_limit_cx
+      labels:
+        namespace: default
+        service: edge-server-cx
