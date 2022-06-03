@@ -1,0 +1,119 @@
+evaluate:
+  type: "shell"
+  timeout: 2500
+  shell:
+    entrypoint: "python"
+    command:
+      - "/evaluate.py"
+metric:
+  type: "shell"
+  timeout: 2500
+  shell:
+    entrypoint: "python"
+    command:
+      - "/metric.py"
+kubernetesMetricSpecs:      
+- type: Object
+  object:
+    metric:
+      name: edge_server_art_for_10_cx
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cx   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_cpu_cores_cx
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cx   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_cpu_per_limit_for_60_cx
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cx   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_cpu_throttling_for_60_cx
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cx   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_memory_cx
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cx   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_memory_per_limit_cx
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cx   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_replicas_count_cx
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cx   
+    target:
+      type: Value
+- type: Object
+  object:
+    metric:
+      name: edge_server_rr_for_2_cx
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cx   
+    target:
+      type: Value               
+- type: Object
+  object:
+    metric:
+      name: edge_server_rr_for_30_cx
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cx   
+    target:
+      type: Value                
+- type: Object
+  object:
+    metric:
+      name: edge_server_total_requests_interval_for_30_cx
+    describedObject : 
+        apiVersion: /v1
+        kind: Service
+        name: edge-server-cx   
+    target:
+      type: Value                 
+minReplicas: 1
+maxReplicas: 3    
+downscaleStabilization: 20 # Tou dinw 2 interval na tsillarei otan kanei downscale na dei ama paei kala 
+runMode: "per-resource"

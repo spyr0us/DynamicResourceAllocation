@@ -8,8 +8,8 @@ spec:
   - name: edge-server-big-rule
     interval: 30s
     rules:
-    - expr: avg(sum by (pod) (rate(flask_http_request_total{service=~"edge-server-cv.*"} [2s])))
-      record: edge_server_rr_for_2
+    - expr: avg(sum by (pod) (rate(flask_http_request_total{service=~"edge-server-cv"} [2s])))
+      record: edge_server_rr_for_2_cv
       labels:
         namespace: default
         service: edge-server-cv

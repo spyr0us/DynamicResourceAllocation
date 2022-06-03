@@ -86,7 +86,7 @@ kubernetesMetricSpecs:
 - type: Object
   object:
     metric:
-      name: edge_server_rr_for_2
+      name: edge_server_rr_for_2_cv
     describedObject : 
         apiVersion: /v1
         kind: Service

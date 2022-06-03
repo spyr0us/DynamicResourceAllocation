@@ -15,8 +15,10 @@ for (dirpath, dirnames, filenames) in os.walk(IMAGES_PATH):
 def post_once():
      image = os.path.join(IMAGES_PATH, random.choice(IMAGES))
      print('Using image: {}'.format(image))
-     a = requests.post("http://edge-server-cv.info:80", files={"file":
+     a = requests.post("http://10.106.228.73:80", files={"file":
 open(image, "rb")})
+     # a = requests.post("http://edge-server-cv.info:80/", files={"file":open(image, "rb")})
+
      print(a)
 #http://192.168.49.2:30796
 DURATION = float(os.getenv('DURATION', '1800.0'))

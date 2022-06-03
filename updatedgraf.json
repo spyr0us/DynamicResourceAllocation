@@ -1,0 +1,1080 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 25,
+    "links": [],
+    "panels": [
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "prometheus",
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "hiddenSeries": false,
+        "id": 2,
+        "interval": "1s",
+        "legend": {
+          "avg": false,
+          "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg(\n    sum by (pod) (\n      rate(flask_http_request_total{service=\"edge-server-cv\"} [2s])\n  )\n)",
+            "format": "time_series",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "Average Request Rate cv",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum by (pod) (\n  sum by (pod, status) (\n    sum(rate(flask_http_request_total{service=\"edge-server-cv\"} [30s]))\n  )\n)",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "avg_requests_cv/30",
+            "refId": "D"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg(\n    sum by (pod) (\n      rate(flask_http_request_total{service=\"edge-server-cx\"} [2s])\n  )\n)",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Average Request Rate cx",
+            "refId": "E"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum by (pod) (\n  sum by (pod, status) (\n    sum(rate(flask_http_request_total{service=\"edge-server-cv\"} [30s]))\n  )\n)",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "avg_requests_cx/30",
+            "refId": "F"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum by (pod) (\n  sum by (pod, status) (\n    rate(flask_http_request_total{service=\"edge-server-cv\"} [2s])\n  )\n)",
+            "format": "time_series",
+            "hide": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{pod}} Requests/2s",
+            "refId": "B"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum by (pod) (\n  sum by (pod, status) (\n    rate(flask_http_request_total{service=\"edge-server-cv\"} [30s])\n  )\n)",
+            "hide": true,
+            "interval": "",
+            "legendFormat": "{{pod}} requests/30",
+            "refId": "C"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Finished Request rate",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:65",
+            "format": "reqps",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "$$hashKey": "object:66",
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": "prometheus",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        },
+        "id": 4,
+        "interval": "1s",
+        "links": [],
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean"
+            ],
+            "displayMode": "table",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg(\n    sum by (pod) (\n      rate(flask_http_request_duration_seconds_sum{service=\"edge-server-cv\"} [10s])\n    ) /\n    sum by (pod) (\n      rate(flask_http_request_duration_seconds_count{service=\"edge-server-cv\"} [10s])\n    )\n)",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "Average Response Rate cv",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg(\n    sum by (pod) (\n      rate(flask_http_request_duration_seconds_sum{service=\"edge-server-cx\"} [10s])\n    ) /\n    sum by (pod) (\n      rate(flask_http_request_duration_seconds_count{service=\"edge-server-cx\"} [10s])\n    )\n)",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Average Response Rate cx",
+            "refId": "C"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg by (pod) (\n    sum by (pod) (\n      rate(flask_http_request_duration_seconds_sum{service=\"edge-server-cv\"} [10s])\n    ) /\n    sum by (pod) (\n      rate(flask_http_request_duration_seconds_count{service=\"edge-server-cv\"} [10s])\n    )\n)",
+            "format": "time_series",
+            "hide": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{pod}} Response",
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Response time",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "prometheus",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 9
+        },
+        "id": 12,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "rate(container_cpu_cfs_throttled_seconds_total{container=~\"edge-server-cv.*\" , id=~\"/kubepods.*\"} [60s])",
+            "hide": true,
+            "interval": "",
+            "legendFormat": "{{pod}} 60s",
+            "queryType": "randomWalk",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "rate(container_cpu_cfs_throttled_seconds_total{container=~\"edge-server-cv.*\" , id=~\"/kubepods.*\"} [2m])",
+            "hide": true,
+            "interval": "",
+            "legendFormat": "2m",
+            "refId": "B"
+          },
+          {
+            "exemplar": true,
+            "expr": "rate(container_cpu_cfs_throttled_seconds_total{container=~\"edge-server-cv.*\" , id=~\"/kubepods.*\"} [5m])",
+            "hide": true,
+            "interval": "",
+            "legendFormat": "5m",
+            "refId": "C"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg(rate(container_cpu_cfs_throttled_seconds_total{container=~\"edge-server-cv.*\" , id=~\"/kubepods.*\"} [60s]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "average throttling cv",
+            "refId": "D"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg(rate(container_cpu_cfs_throttled_seconds_total{container=~\"edge-server-cx.*\" , id=~\"/kubepods.*\"} [60s]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "average throttling cx",
+            "refId": "E"
+          }
+        ],
+        "title": "CPU Throttling",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "prometheus",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "stepBefore",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 12,
+          "x": 12,
+          "y": 9
+        },
+        "id": 6,
+        "links": [],
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "rate(container_cpu_usage_seconds_total{container=~\"edge-server-cv.*\", id=~\"/kubepods.*\"}[60s])",
+            "hide": true,
+            "interval": "",
+            "legendFormat": "{{pod}}",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "rate(container_cpu_usage_seconds_total{container=~\"edge-server-cv.*\" , id=~\"/kubepods.*\"}[2m])",
+            "hide": true,
+            "interval": "",
+            "legendFormat": "2m",
+            "refId": "B"
+          },
+          {
+            "exemplar": true,
+            "expr": "rate(container_cpu_usage_seconds_total{container=~\"edge-server-cv.*\" , id=~\"/kubepods.*\"}[5m])",
+            "hide": true,
+            "interval": "",
+            "legendFormat": "5m",
+            "refId": "C"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg(rate(container_cpu_usage_seconds_total{container=~\"edge-server-cv.*\", id=~\"/kubepods.*\"}[60s]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "average cores cv",
+            "refId": "D"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg(rate(container_cpu_usage_seconds_total{container=~\"edge-server-cx.*\", id=~\"/kubepods.*\"}[60s]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "average cores cx",
+            "refId": "E"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "CPU Cores",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "prometheus",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 14
+        },
+        "id": 14,
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean"
+            ],
+            "displayMode": "table",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(rate(container_cpu_usage_seconds_total{container=~\"edge-server-cv.*\", id=~\"/kubepods.*\"}[60s])) / (sum(container_spec_cpu_quota{container=~\"edge-server-cv.*\", id=~\"/kubepods.*\"}) / sum(container_spec_cpu_period{container=~\"edge-server-cv.*\", id=~\"/kubepods.*\"}) ) * 100",
+            "hide": true,
+            "interval": "",
+            "legendFormat": "{{container}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg(rate(container_cpu_usage_seconds_total{container=~\"edge-server-cv.*\", id=~\"/kubepods.*\"}[60s])) / (sum(container_spec_cpu_quota{container=~\"edge-server-cv.*\", id=~\"/kubepods.*\"}) / sum(container_spec_cpu_period{container=~\"edge-server-cv.*\", id=~\"/kubepods.*\"}) ) * 100",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Average cpu% cv",
+            "refId": "B"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg(rate(container_cpu_usage_seconds_total{container=~\"edge-server-cx.*\", id=~\"/kubepods.*\"}[60s])) / (sum(container_spec_cpu_quota{container=~\"edge-server-cx.*\", id=~\"/kubepods.*\"}) / sum(container_spec_cpu_period{container=~\"edge-server-cx.*\", id=~\"/kubepods.*\"}) ) * 100",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Average cpu% cx",
+            "refId": "C"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Total CPU usage as a  % of limit",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "prometheus",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 17
+        },
+        "id": 16,
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean"
+            ],
+            "displayMode": "table",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "round(sum(increase(flask_http_request_total{service=~\"edge-server-cv.*\"} [30s])))",
+            "interval": "",
+            "legendFormat": "Total requests cv",
+            "queryType": "randomWalk",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "round(sum(increase(flask_http_request_total{service=~\"edge-server-cx.*\"} [30s])))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Total requests cx",
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Total Requests Per Interval",
+        "type": "timeseries"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "prometheus",
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 5,
+          "w": 12,
+          "x": 12,
+          "y": 22
+        },
+        "hiddenSeries": false,
+        "id": 8,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(container_memory_working_set_bytes{id=~\"/kubepods.*\",container=~\"edge-server-cv.*\"})",
+            "format": "time_series",
+            "hide": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "Total Memory Usage",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg(container_memory_working_set_bytes{id=~\"/kubepods.*\",container=~\"edge-server-cv.*\"})",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Average Memory Usage cv",
+            "refId": "B"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg(container_memory_working_set_bytes{id=~\"/kubepods.*\",container=~\"edge-server-cx.*\"})",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Average Memory Usage cx",
+            "refId": "D"
+          },
+          {
+            "exemplar": true,
+            "expr": "container_memory_working_set_bytes{id=~\"/kubepods.*\",container=~\"edge-server-cv.*\"}",
+            "hide": true,
+            "interval": "",
+            "legendFormat": "{{pod}} Memory Usage",
+            "refId": "C"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Memory",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:434",
+            "format": "decbits",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:435",
+            "format": "bits",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": "prometheus",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 25
+        },
+        "id": 18,
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean"
+            ],
+            "displayMode": "table",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "container_memory_working_set_bytes{id=~\"/kubepods.*\",container=~\"edge-server-cv.*\"} / container_spec_memory_limit_bytes{container=~\"edge-server-cv.*\", id=~\"/kubepods.*\"} * 100",
+            "hide": true,
+            "interval": "",
+            "legendFormat": "{{pod}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg(container_memory_working_set_bytes{id=~\"/kubepods.*\",container=~\"edge-server-cv.*\"} / container_spec_memory_limit_bytes{container=~\"edge-server-cv.*\", id=~\"/kubepods.*\"}) * 100",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Average memory% cv",
+            "refId": "B"
+          },
+          {
+            "exemplar": true,
+            "expr": "avg(container_memory_working_set_bytes{id=~\"/kubepods.*\",container=~\"edge-server-cx.*\"} / container_spec_memory_limit_bytes{container=~\"edge-server-cx.*\", id=~\"/kubepods.*\"}) * 100",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Average memory% cx",
+            "refId": "C"
+          }
+        ],
+        "title": "Total Memory Usage as a % of limit",
+        "type": "timeseries"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "prometheus",
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 33
+        },
+        "hiddenSeries": false,
+        "id": 10,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "count(count by (pod) (container_memory_usage_bytes{ container=~\"edge-server-cv.*\"}))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "Total pods cv",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "count(count by (pod) (container_memory_usage_bytes{ container=~\"edge-server-cx.*\"}))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Total pods cx",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Number of pods",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:275",
+            "format": "none",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:276",
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 30,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-5m",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    },
+    "timezone": "",
+    "title": "Edge server dashboard",
+    "uid": "uubYQM8nk",
+    "version": 16
+  }

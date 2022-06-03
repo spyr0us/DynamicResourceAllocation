@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: python-custom-autoscaler-small
-        image: python_rfc_scaler_v6:latest ##pickle_cpa8:latest
+        image: cxcpa:latest ##pickle_cpa8:latest
         imagePullPolicy: IfNotPresent
   scaleTargetRef:
     apiVersion: apps/v1

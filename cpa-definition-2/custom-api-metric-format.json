@@ -1,0 +1,22 @@
+{
+  "kind": "MetricValueList",
+  "apiVersion": "custom.metrics.k8s.io/v1beta1",
+  "metadata": {
+    "selfLink": "/apis/custom.metrics.k8s.io/v1beta1/namespaces/default/services/edge-server-cv/edge_server_request_rate_for_30"
+  },
+  "items": [
+    {
+      "describedObject": {
+        "kind": "Service",
+        "namespace": "default",
+        "name": "edge-server-cv",
+        "apiVersion": "/v1"
+      },
+      "metricName": "edge_server_request_rate_for_30",
+      "timestamp": "2021-12-10T19:35:47Z",
+      "value": "0",
+      "selector": null
+    }
+  ]
+}
+

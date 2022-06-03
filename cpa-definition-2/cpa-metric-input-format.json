@@ -1,0 +1,26 @@
+{
+    "resource": "...",
+    "runType": "scaler",
+    "kubernetesMetrics": [
+      {
+        "current_replicas": 1,
+        "spec": {
+          "type": "Object",
+          "metric": {
+            "name": "queue_messages_ready",
+            "selector": "queue=worker_tasks",
+            "target": {
+              "type": "Value"
+            }
+          }
+        },
+        "object": { 
+          "current": {
+            "value": 5 
+          },
+          "ready_pod_count": 1,
+          "timestamp": "2021-04-05T18:10:10Z"
+        }
+      }
+    ]
+  }
