@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: edge-server-small-rule-extra
+  namespace: monitoring
+spec:
+  groups:
+  - name: edge-server-small-rule-extra
+    interval: 30s
+    rules:
+    - expr: (edge_server_rr_for_2_cx and on() (edge_server_rr_for_2_cx >0)) or on() clamp_max(absent(nonexistent{Metric="edge_server_rr_for_2_cx"}),0)
+      record: edge_server_rr_for_2_cx_extra
+      labels:
+        namespace: default
+        service: edge-server-cx
+    - expr: (edge_server_art_for_10_cx and on() (edge_server_art_for_10_cx >0)) or on() clamp_max(absent(nonexistent{Metric="edge_server_art_for_10_cx"}),0)
+      record: edge_server_art_for_10_cx_extra
+      labels:
+        namespace: default
+        service: edge-server-cx
+    - expr: (edge_server_rr_for_30_cx and on() (edge_server_rr_for_30_cx >0)) or on() clamp_max(absent(nonexistent{Metric="edge_server_rr_for_30_cx"}),0)
+      record: edge_server_rr_for_30_cx_extra
+      labels:
+        namespace: default
+        service: edge-server-cx

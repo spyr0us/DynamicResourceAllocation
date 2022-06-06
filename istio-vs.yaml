@@ -12,7 +12,7 @@ spec:
   - route:
     - destination:
         host: edge-server-cv
-      weight: 60
+      weight: 75
     - destination:
         host: edge-server-cx
-      weight: 40
+      weight: 25

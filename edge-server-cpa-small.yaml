@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: python-custom-autoscaler-small
-        image: cxcpa:latest ##pickle_cpa8:latest
+        image: rfc_scaler_v1_cx:latest ##cxcpa:latest
         imagePullPolicy: IfNotPresent
   scaleTargetRef:
     apiVersion: apps/v1
@@ -16,4 +16,4 @@ spec:
   roleRequiresMetricsServer: false
   config: 
     - name: interval
-      value: "10000"
+      value: "15000"
